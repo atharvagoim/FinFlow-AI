@@ -30,8 +30,8 @@ export default function LoginPage() {
   return (
     <AuthLayout title="Welcome back" subtitle="Sign in to your finance automation workspace">
       <form onSubmit={onSubmit} className="space-y-4">
-        <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <Input label="Email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <Input label="Password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         {error && <p className="text-sm text-red-500">{error}</p>}
         <div className="flex items-center justify-between text-sm">
           <Link to="/forgot-password" className="text-brand-600 hover:underline">Forgot password?</Link>
@@ -42,7 +42,7 @@ export default function LoginPage() {
         Don't have an account? <Link to="/signup" className="font-medium text-brand-600 hover:underline">Sign up</Link>
       </p>
       <p className="mt-4 rounded-lg bg-slate-50 dark:bg-slate-800/60 p-3 text-xs text-slate-500 dark:text-slate-400">
-        Demo: admin@finflow.ai / manager@finflow.ai / employee@finflow.ai — password: Password123!
+        Demo: admin@finflow.ai / manager@finflow.ai / employee@finflow.ai — password: 12345678
       </p>
     </AuthLayout>
   );

@@ -29,7 +29,7 @@ export default function ForgotPasswordPage() {
         </p>
       ) : (
         <form onSubmit={onSubmit} className="space-y-4">
-          <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <Input label="Email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           <Button type="submit" className="w-full" loading={loading}>Send reset link</Button>
         </form>
       )}
