@@ -1,0 +1,59 @@
+services:
+  - type: web
+    name: finflow-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RUN_WORKER_INLINE
+        value: "true" # free plan has no separate worker process — see backend/README.md
+      - key: CLIENT_URL
+        sync: false # your Vercel frontend URL, e.g. https://finflow-ai.vercel.app
+      - key: MONGO_URI
+        sync: false # your MongoDB Atlas connection string
+      - key: REDIS_HOST
+        sync: false # e.g. your Upstash Redis host
+      - key: REDIS_PORT
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: EMAIL_FROM
+        value: "FinFlow AI <no-reply@finflow.ai>"
+
+# Optional: uncomment if you upgrade to a paid Render plan and want the
+# workflow worker as its own always-on background process instead of
+# RUN_WORKER_INLINE=true above.
+#  - type: worker
+#    name: finflow-worker
+#    runtime: node
+#    plan: starter
+#    rootDir: backend
+#    buildCommand: npm install && npm run build
+#    startCommand: node dist/jobs/worker.js
+#    envVars:
+#      - fromGroup: finflow-shared-env
