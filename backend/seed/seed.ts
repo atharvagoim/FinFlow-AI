@@ -26,7 +26,7 @@ async function seed() {
     AuditLog.deleteMany({}),
   ]);
 
-  const passwordHash = await bcrypt.hash("Password123!", 10);
+  const passwordHash = await bcrypt.hash("12345678", 10);
 
   const [admin, manager, employee] = await User.create([
     { name: "Atharva Admin", email: "admin@finflow.ai", passwordHash, role: "admin", isEmailVerified: true },
